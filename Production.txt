@@ -1,0 +1,4 @@
+This determines if you are in production or test mode.  Type '::true' for production, and '::false' for training, where you cannot commit changes or save.
+Default will be training mode.
+
+::true

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/mvc
+          http://www.springframework.org/schema/mvc/spring-mvc.xsd
+          http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/aop  
+          http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+    <!-- Bean definitions go here -->
+   
+    <bean id ="UiImpl" class = "com.sg.floormaster.UI.UiImpl"/>
+   
+    <bean id = "View" class="com.sg.floormaster.UI.ViewImpl">
+        <constructor-arg ref ="UiImpl"/>
+    </bean>
+   
+   
+    <bean id = "taxImpl" class="com.sg.floormaster.Dao.TaxImpl" />
+   
+    <bean id ="productImpl" class ="com.sg.floormaster.Dao.ProductImpl" />
+    
+    <bean id ="orderImpl" class ="com.sg.floormaster.Dao.OrderImpl">
+        <constructor-arg ref ="taxImpl" />
+        <constructor-arg ref = "productImpl"/>
+    </bean>
+   
+    <bean id ="Service" class ="com.sg.floormaster.Service.ServiceImpl" >
+        <constructor-arg ref ="taxImpl"/>
+        <constructor-arg ref ="orderImpl"/>
+        <constructor-arg ref ="productImpl"/>
+    </bean>
+   
+
+    <bean id = "Controller" class ="com.sg.floormaster.Controller.Controller">
+        <constructor-arg ref = "Service" />
+        <constructor-arg ref = "View"/>
+    </bean>
+    
+<!--    <bean id = "SnackAuditImpl" class="Dao.SnackAuditImpl"/>
+    <bean id ="LoggingAdvice" class = "Dao.LoggingAdvice">
+        <constructor-arg ref = "SnackAuditImpl"/>
+    </bean>-->
+
+   
+<!--    <aop:config>
+        <aop:aspect ref="LoggingAdvice">
+            <aop:after-returning method="createSnackEntry"
+                pointcut="execution(* checkMoney(..))"
+                />
+            <aop:after-throwing method="createErrorLog"
+                pointcut="execution(* checkMoney(..))"
+                throwing="cause"
+                />
+           
+         </aop:aspect>
+     </aop:config>
+    -->
+</beans>

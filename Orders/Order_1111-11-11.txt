@@ -1,0 +1,2 @@
+Name, state, material, taxRate, area, costMaterialPerSquareFoot, costLaborPerSquareFoot, materialCost, laborCost, totalTaxes, totalCost, OrderNumber.
+RAwrRRrrR,PA,Wood,0.00,351.00,5.15,4.75,1807.65,1667.25,234.56,3709.46,43
